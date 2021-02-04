@@ -20,7 +20,7 @@
     "resolveJsonModule": true,
     "isolatedModules": true,
     "noEmit": true,
-    "baseUrl": "./src",
+    "baseUrl": ".",
     "paths": {
       "~/*": ["src/*"]
     },
@@ -31,7 +31,10 @@
     "@typescript-eslint/ban-ts-comment": "off"
   },
   "include": [
-    "src"
+    "src",
+    "next-env.d.ts",
+    "**/*.ts",
+    "**/*.tsx"
   ],
   "exclude": ["node_modules", "src/reportWebVitals"]
 }

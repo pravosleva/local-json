@@ -5,6 +5,8 @@ body {
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  background-color: #3e3d42;
+  color: #fff;
 }
 
 code {
@@ -12,10 +14,19 @@ code {
     monospace;
 }
 
-.container {
-  margin-top: 30px;
+a {
+  color: #fff !important;
 }
+.link_active,
+.link_active a {
+  color: red !important;
+}
+
+/* .container {
+  border: 1px solid red;
+} */
 #a_unique_id-outer-box {
+  background-color: #3e3d42 !important;
   margin: 0 auto !important;
   box-shadow: rgba(99, 114, 130, 0.3) 6px 7px 30px;
 }
