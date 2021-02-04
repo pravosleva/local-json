@@ -5,6 +5,7 @@ extends:
   - airbnb-typescript-prettier
   - react-app
   - react-app/jest
+parser: '@typescript-eslint/parser'
 parserOptions:
   ecmaFeatures:
     jsx: true
@@ -19,4 +20,5 @@ rules:
     'no-plusplus': 'off',
     '@typescript-eslint/ban-ts-comment': 'off',
     '@typescript-eslint/no-explicit-any': 'off',
+    'import/prefer-default-export': 'off',
   }
