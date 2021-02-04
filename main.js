@@ -1,3 +1,5 @@
+/* eslint-disable node/no-unpublished-require */
+/* eslint-disable import/no-extraneous-dependencies */
 // Modules to control application life and create native browser window
 const { app, BrowserWindow } = require('electron')
 const path = require('path')
@@ -5,6 +7,7 @@ const path = require('path')
 // --- Adds
 const isDev = process.env.NODE_ENV === 'development'
 const { createPollingByConditions } = require('./polling-to-frontend')
+const expressApp = require('./express/server')()
 
 const CONFIG = {
   FRONTEND_DEV_URL: 'http://localhost:3535',
@@ -21,6 +24,8 @@ function createWindow() {
     height: 600,
     webPreferences: {
       preload: path.join(__dirname, 'preload.js'),
+      // nodeIntegration: true,
+      contextIsolation: true,
     },
   })
 
@@ -81,7 +86,11 @@ app.whenReady().then(() => {
 // for applications and their menu bar to stay active until the user quits
 // explicitly with Cmd + Q.
 app.on('window-all-closed', () => {
-  if (process.platform !== 'darwin') app.quit()
+  expressApp.close()
+  if (process.platform !== 'darwin') {
+    app.quit()
+  }
+  // if (process.platform !== 'win32') {}
 })
 
 // In this file you can include the rest of your app's specific main process
