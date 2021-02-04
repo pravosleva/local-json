@@ -1,0 +1,15 @@
+env:
+  browser: true
+  es2020: true
+extends:
+  - airbnb
+  - prettier
+  - plugin:node/recommended
+parserOptions:
+  ecmaFeatures:
+    jsx: true
+  ecmaVersion: 11
+  sourceType: module
+plugins:
+  - react
+rules: { semi: 'off', 'no-console': 'off', 'no-plusplus': 'off' }
