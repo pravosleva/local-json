@@ -1,0 +1,22 @@
+env:
+  browser: true
+  es2020: true
+extends:
+  - airbnb-typescript-prettier
+  - react-app
+  - react-app/jest
+parserOptions:
+  ecmaFeatures:
+    jsx: true
+  ecmaVersion: 11
+  sourceType: module
+plugins:
+  - react
+rules:
+  {
+    semi: 'off',
+    'no-console': 'off',
+    'no-plusplus': 'off',
+    '@typescript-eslint/ban-ts-comment': 'off',
+    '@typescript-eslint/no-explicit-any': 'off',
+  }
