@@ -46,6 +46,11 @@ a {
 }
 .file-name {
   cursor: pointer;
+  display: flex;
+  align-items: center;
+}
+.file-name > *:first-child {
+  margin-right: 10px;
 }
 .file-name:hover {
   color: #e63946;

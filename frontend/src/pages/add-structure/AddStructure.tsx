@@ -8,6 +8,9 @@ import JSONInput from 'react-json-editor-ajrm'
 import locale from 'react-json-editor-ajrm/locale/ru'
 import { Button, Tabs, Tab, TabItems, TabItem } from 'ui-neumorphism'
 import styled, { css } from 'styled-components'
+// @ts-ignore
+import Icon from '@mdi/react'
+import { mdiFile } from '@mdi/js'
 import { TextField } from '~/common/components/TextField'
 import { ErrorBoundary } from '~/common/hocs/ErrorBoundary'
 import {
@@ -58,7 +61,7 @@ export const AddStructure0: React.FC = () => {
       placeholder={state.structure || {}}
       colors={{
         // NOTE: overrides theme colors with whatever color value you want
-        keys: '#e76f51',
+        keys: '#e63946',
         string: '#2a9d8f',
         number: '#f4a261',
       }}
@@ -112,7 +115,7 @@ export const AddStructure: React.FC = () => {
           ...props,
           jsx: (
             <div key={fileName} className="file-name" onClick={handleClick}>
-              {props.fileName}
+              <Icon path={mdiFile} size={0.7} /> <span>{props.fileName}</span>
             </div>
           ),
         }
