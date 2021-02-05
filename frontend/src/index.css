@@ -8,6 +8,12 @@ body {
   background-color: #3e3d42;
   color: #fff;
 }
+.draggable-in-electron {
+  -webkit-app-region: drag;
+}
+.draggable-in-electron > div > div > div {
+  -webkit-app-region: no-drag;
+}
 
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
@@ -16,20 +22,31 @@ code {
 
 a {
   color: #fff !important;
+  outline: none;
 }
 .link_active,
 .link_active a {
-  color: red !important;
+  color: #e63946 !important;
 }
 
-/* .container {
-  border: 1px solid red;
-} */
+.container {
+  max-height: calc(100vh - 60px);
+  overflow-y: auto;
+}
 #a_unique_id-outer-box {
   background-color: #3e3d42 !important;
   margin: 0 auto !important;
-  box-shadow: rgba(99, 114, 130, 0.3) 6px 7px 30px;
+  /* box-shadow: rgba(99, 114, 130, 0.3) 6px 7px 30px; */
 }
 #a_unique_id {
   border-radius: 4px;
+}
+#a_unique_id-container {
+  border-radius: 4px;
+}
+.file-name {
+  cursor: pointer;
+}
+.file-name:hover {
+  color: #e63946;
 }

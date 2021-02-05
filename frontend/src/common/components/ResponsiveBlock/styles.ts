@@ -14,7 +14,7 @@ export const useStyles = makeStyles(
     },
     isPaddedMobile: {
       [theme.breakpoints.down('md')]: {
-        // padding: theme.spacing(1, 2, 1, 2),
+        padding: theme.spacing(1, 2, 1, 2),
         // paddingLeft: '14px !important',
         // paddingRight: '14px !important',
       },

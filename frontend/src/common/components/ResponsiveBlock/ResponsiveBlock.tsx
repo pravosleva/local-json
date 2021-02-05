@@ -17,8 +17,7 @@ interface IWrapperProps {
 }
 
 const Wrapper = styled('div')<IWrapperProps>`
-  border: 1px dashed red;
-  padding: 0 !important;
+  // border: 1px dashed red;
   ${({ bgColor }) =>
     bgColor &&
     css`

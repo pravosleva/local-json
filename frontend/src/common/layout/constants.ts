@@ -1,5 +1,5 @@
 const maxWidth = {
-  desktop: 780,
+  desktop: 800,
 }
 
 export const maxWidthDesktop = maxWidth.desktop

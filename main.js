@@ -10,6 +10,7 @@ const { createPollingByConditions } = require('./polling-to-frontend')
 const expressApp = require('./express/server')()
 
 const CONFIG = {
+  EXPRESS_SERVER_PORT: 3000,
   FRONTEND_DEV_URL: 'http://localhost:3535',
   FRONTEND_FIRST_CONNECT_INTERVAL: 4000,
   FRONTERN_FIRST_CONNECT_METHOD: 'get',
@@ -17,22 +18,31 @@ const CONFIG = {
 let connectedToFrontend = false
 // ---
 
+const windowCfg = {
+  width: 900, // 858,
+  height: 600,
+  frame: false,
+  webPreferences: {
+    preload: path.join(__dirname, 'preload.js'),
+    nodeIntegration: true,
+    enableRemoteModule: true,
+    // contextIsolation: true,
+  },
+}
+if (isDev) {
+  windowCfg.width = 1200
+  windowCfg.height = 800
+}
+
 function createWindow() {
   // Create the browser window.
-  const mainWindow = new BrowserWindow({
-    width: 800,
-    height: 600,
-    webPreferences: {
-      preload: path.join(__dirname, 'preload.js'),
-      // nodeIntegration: true,
-      contextIsolation: true,
-    },
-  })
+  const mainWindow = new BrowserWindow(windowCfg)
 
   // and load the index.html of the app.
   // mainWindow.loadFile('index.html')
   if (!isDev) {
-    mainWindow.loadFile('./frontend/build/index.html')
+    // mainWindow.loadFile('./frontend/build/index.html')
+    mainWindow.loadURL(`http://localhost:${CONFIG.EXPRESS_SERVER_PORT}`)
   } else {
     mainWindow.loadURL(CONFIG.FRONTEND_DEV_URL)
     mainWindow.webContents.openDevTools()
