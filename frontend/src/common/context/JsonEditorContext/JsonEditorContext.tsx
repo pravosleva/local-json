@@ -59,7 +59,7 @@ export const JsonEditorContext = createContext({
   onSendStructure: (): void => {
     throw new Error('onSendStructure method should be implemented')
   },
-  getStructureByProjectName: (): void => {
+  getStructureByProjectName: (text: string): void => {
     throw new Error('getStructureByProjectName method should be implemented')
   },
   onChangeStructureEditor: (event: IEvent): void => {
@@ -166,7 +166,7 @@ export const JsonEditorContextProvider: React.FC<IProps> = ({ children }) => {
     state.structure,
     state.projectName,
   ])
-  const getStructureByProjectName = async () => {
+  const getStructureByProjectName = async (projectName: string) => {
     const fetcher = async () => {
       if (!state.projectName) {
         return { isOk: false, message: 'Заполните все поля', result: null }
@@ -175,7 +175,7 @@ export const JsonEditorContextProvider: React.FC<IProps> = ({ children }) => {
 
       const params = new URLSearchParams()
       // params.append('structure', JSON.stringify(state.structure))
-      params.append('projectName', state.projectName)
+      params.append('projectName', projectName)
 
       const response = await axios
         .get(`${REACT_APP_ENDPOINT}/get-structure?${params.toString()}`)

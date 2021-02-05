@@ -97,9 +97,10 @@ export const AddStructure: React.FC = () => {
     resetState,
     getStructureByProjectName,
   } = useJsonEditorContext()
+  const [activeTabIndex, setActiveTabIndex] = useState<number>(0)
   const handleChange = (e: any) => {
-    // console.log(e)
-    // {event, id, valid, value }
+    // console.log(e) // {event, id, valid, value }
+    // console.log('---')
     onChangeProjectName(e.value)
   }
   const projectName = useMemo(() => state.projectName, [state.projectName])
@@ -109,6 +110,8 @@ export const AddStructure: React.FC = () => {
         const { fileName } = props
         const handleClick = (e: any) => {
           onChangeProjectName(fileName)
+          setActiveTabIndex(0)
+          setTimeout(() => getStructureByProjectName(fileName), 2000)
         }
 
         return {
@@ -120,10 +123,13 @@ export const AddStructure: React.FC = () => {
           ),
         }
       }),
-    [state.projectList, onChangeProjectName]
+    [
+      state.projectList,
+      onChangeProjectName,
+      setActiveTabIndex,
+      getStructureByProjectName,
+    ]
   )
-
-  const [activeTabIndex, setActiveTabIndex] = useState<number>(0)
 
   return (
     <>
@@ -186,7 +192,7 @@ export const AddStructure: React.FC = () => {
                           state.isLoading || state.isFound || !state.projectName
                         }
                         onClick={() => {
-                          getStructureByProjectName()
+                          getStructureByProjectName(state.projectName)
                         }}
                       >
                         Get structure by project name{' '}
