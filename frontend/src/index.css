@@ -37,11 +37,14 @@ a {
   background-color: #3e3d42 !important;
   margin: 0 auto !important;
   /* box-shadow: rgba(99, 114, 130, 0.3) 6px 7px 30px; */
+  width: 100% !important;
+  border-radius: 4px;
 }
 #a_unique_id {
   border-radius: 4px;
 }
 #a_unique_id-container {
+  width: 100% !important;
   border-radius: 4px;
 }
 .file-name {

@@ -1,10 +1,11 @@
 import React from 'react'
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom'
 import { AddStructure } from './pages/add-structure'
-import { Header } from '~/common/layout/header'
+import { Header } from '~/common/components/layout/header'
 import { Home } from '~/pages/home'
 import { About } from '~/pages/about'
 import {
+  AppApiContextProvider,
   JsonEditorContextProvider,
   NotifsContextProvider,
 } from '~/common/context'
@@ -16,26 +17,28 @@ import 'animate.css/animate.min.css'
 
 const App: React.FC = () => {
   return (
-    <NotifsContextProvider>
-      <JsonEditorContextProvider>
-        <Router>
-          <Header />
-          <div className="container">
-            <Switch>
-              <Route path="/add-structure">
-                <AddStructure />
-              </Route>
-              <Route path="/about">
-                <About />
-              </Route>
-              <Route path="/">
-                <Home />
-              </Route>
-            </Switch>
-          </div>
-        </Router>
-      </JsonEditorContextProvider>
-    </NotifsContextProvider>
+    <AppApiContextProvider>
+      <NotifsContextProvider>
+        <JsonEditorContextProvider>
+          <Router>
+            <Header />
+            <div className="container">
+              <Switch>
+                <Route path="/add-structure">
+                  <AddStructure />
+                </Route>
+                <Route path="/about">
+                  <About />
+                </Route>
+                <Route path="/">
+                  <Home />
+                </Route>
+              </Switch>
+            </div>
+          </Router>
+        </JsonEditorContextProvider>
+      </NotifsContextProvider>
+    </AppApiContextProvider>
   )
 }
 

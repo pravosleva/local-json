@@ -60,7 +60,9 @@ const saveStructure = (req, res, _next) => {
     result.message = err.message || 'Fuckup'
   }
 
-  res.status(status).send(result)
+  setTimeout(() => {
+    res.status(status).send(result)
+  }, 2000)
 }
 
 module.exports = saveStructure

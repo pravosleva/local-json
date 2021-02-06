@@ -29,11 +29,13 @@
       * {
         outline: none;
       }
-      #close-app-btn {
+      .app-actions-btn {
         position: fixed;
-        top: 0px;
-        right: 0px;
-        font-size: 25px;
+        font-size: 20px;
+        -webkit-app-region: no-drag;
+        z-index: 2;
+        cursor: pointer;
+        transition: background-color 0.3s ease, color 0.3s ease;
 
         width: 30px;
         height: 30px;
@@ -41,23 +43,70 @@
         display: flex;
         justify-content: center;
         align-items: center;
-
-        -webkit-app-region: no-drag;
-        z-index: 2;
-        cursor: pointer;
+      }
+      #close-app-btn {
+        top: 0px;
+        right: 0px;
 
         background-color: #e63946;
         color: #fff;
-        transition: background-color 0.3s ease, color 0.3s ease;
+        
       }
-      #close-app-btn:hover {
+      #close-app-btn:hover, #close-app-btn.active {
         color: #e63946;
+        background-color: #fff;
+      }
+
+      #maximize-app-btn {
+        top: 0px;
+        left: 0px;
+
+        background-color: #3e3d42;
+        color: #fff;
+      }
+      #maximize-app-btn:hover, #maximize-app-btn.active {
+        color: #3e3d42;
+        background-color: #fff;
+      }
+
+      #mobile-size-app-btn {
+        top: 30px;
+        left: 0px;
+
+        background-color: #3e3d42;
+        color: #fff;
+      }
+      #mobile-size-app-btn:hover, #mobile-size-app-btn.active {
+        color: #3e3d42;
+        background-color: #fff;
+      }
+
+      #fullscreen-app-btn {
+        top: 60px;
+        left: 0px;
+
+        background-color: #3e3d42;
+        color: #fff;
+      }
+      #fullscreen-app-btn:hover, #fullscreen-app-btn.active {
+        color: #3e3d42;
+        background-color: #fff;
+      }
+
+      #restore-app-btn {
+        top: 90px;
+        left: 0px;
+
+        background-color: #3e3d42;
+        color: #fff;
+      }
+      #restore-app-btn:hover, #restore-app-btn.active {
+        color: #3e3d42;
         background-color: #fff;
       }
     </style>
   </head>
   <body>
-    <button id='close-app-btn'>&times;</button>
     <noscript>You need to enable JavaScript to run this app.</noscript>
     <div id="root"></div>
     <!--

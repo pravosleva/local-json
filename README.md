@@ -8,7 +8,7 @@ Electron side deps will be installed then frontend side deps will be installed.
 
 ### `yarn dev`
 
-You can use hot reload dev mode for frontend react app in this electron app. Electron app BrowserWindow will be created when `http://localhost:3000` will be available.
+You can use hot reload dev mode for frontend react app in this electron app. Electron app BrowserWindow will be created when `http://localhost:3535` will be available.
 
 ### `yarn fresh-prod-start`
 

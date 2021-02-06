@@ -181,9 +181,7 @@ export const JsonEditorContextProvider: React.FC<IProps> = ({ children }) => {
         .get(`${REACT_APP_ENDPOINT}/get-structure?${params.toString()}`)
         .then((res) => {
           setStateDelta({ isFound: true })
-          addInfoNotif({
-            message: 'Found',
-          })
+          // addInfoNotif({ message: 'Found' })
           return {
             isOk: true,
             result: res.data,

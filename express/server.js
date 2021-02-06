@@ -24,7 +24,7 @@ const fapiRouter = require('./router/fapi')
 
 const isDev = process.env.NODE_ENV === 'development'
 const CONFIG = {
-  EXPRESS_SERVER_PORT: 3000,
+  EXPRESS_SERVER_PORT: 3536,
 }
 
 // --- EXPRESS APP

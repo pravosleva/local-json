@@ -10,10 +10,10 @@
     "frontend-dev": "yarn --cwd ./frontend dev",
     "dist": "yarn --cwd ./frontend build && electron-builder",
     "fresh-prod-start": "yarn build-client && NODE_ENV=production yarn start",
-    "start": "NODE_ENV=production electron ."
+    "start": "yarn --cwd ./frontend build && NODE_ENV=production electron ."
   },
   "build": {
-    "productName": "Electron React Boilerplate 2021",
+    "productName": "electron-helper",
     "appId": "your.id",
     "mac": {
       "category": "your.app.category.type"
@@ -30,6 +30,10 @@
     "directories": {
       "buildResources": "resources",
       "output": "release"
+    },
+    "win": {
+      "target": "nsis",
+      "icon": "resourses/icon.ico"
     }
   },
   "repository": "https://github.com/pravosleva/electron-react-boilerplate-2021",

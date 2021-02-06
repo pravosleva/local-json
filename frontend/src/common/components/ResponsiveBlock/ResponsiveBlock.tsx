@@ -14,10 +14,15 @@ interface IWrapperProps {
   bgColor?: string
   desktopOnly?: boolean
   mobileOnly?: boolean
+  hasRedBorder?: boolean
 }
 
 const Wrapper = styled('div')<IWrapperProps>`
-  // border: 1px dashed red;
+  ${({ hasRedBorder }) =>
+    hasRedBorder &&
+    css`
+      border: 1px dashed red;
+    `}
   ${({ bgColor }) =>
     bgColor &&
     css`
@@ -37,6 +42,7 @@ const Wrapper = styled('div')<IWrapperProps>`
         display: none;
       }
     `}
+    hasRedBorder
   
   & h1 {
     margin-bottom: 20px;
@@ -49,6 +55,8 @@ interface IProps {
   desktopOnly?: boolean
   mobileOnly?: boolean
   isPaddedMobile?: boolean
+  hasRedBorder?: boolean
+  hasAdditionalPadding?: boolean
 
   children: JSX.Element
 }
@@ -60,15 +68,19 @@ export const ResponsiveBlock: React.FC<IProps> = ({
   desktopOnly,
   mobileOnly,
   isPaddedMobile,
+  hasRedBorder,
+  hasAdditionalPadding,
 }) => {
   const classes = useStyles()
 
   return (
     <Wrapper
+      hasRedBorder={hasRedBorder}
       className={clsx({
         [classes.limited]: !isFullWidth,
         [classes.unlimited]: isFullWidth,
         [classes.isPaddedMobile]: isPaddedMobile,
+        [classes.specialPaddingHeader]: hasAdditionalPadding,
       })}
       bgColor={bgColor}
       desktopOnly={desktopOnly}

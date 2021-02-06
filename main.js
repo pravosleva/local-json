@@ -10,7 +10,7 @@ const { createPollingByConditions } = require('./polling-to-frontend')
 const expressApp = require('./express/server')()
 
 const CONFIG = {
-  EXPRESS_SERVER_PORT: 3000,
+  EXPRESS_SERVER_PORT: 3536,
   FRONTEND_DEV_URL: 'http://localhost:3535',
   FRONTEND_FIRST_CONNECT_INTERVAL: 4000,
   FRONTERN_FIRST_CONNECT_METHOD: 'get',
@@ -19,6 +19,8 @@ let connectedToFrontend = false
 // ---
 
 const windowCfg = {
+  minWidth: 400,
+  minHeight: 500,
   width: 900, // 858,
   height: 600,
   frame: false,
@@ -50,12 +52,15 @@ function createWindow() {
 
   // Open the DevTools.
   // mainWindow.webContents.openDevTools()
+
+  return mainWindow
 }
 
 // This method will be called when Electron has finished
 // initialization and is ready to create browser windows.
 // Some APIs can only be used after this event occurs.
 app.whenReady().then(() => {
+  let mainWindow
   // WAY 1:
   // createWindow()
   // ---
@@ -68,7 +73,7 @@ app.whenReady().then(() => {
       callbackAsResolve: () => {
         console.log(`SUCCESS! CONNECTED TO ${CONFIG.FRONTEND_DEV_URL}`)
         connectedToFrontend = true
-        createWindow()
+        mainWindow = createWindow()
       },
       toBeOrNotToBe: () => !connectedToFrontend, // Need to reconnect again
       callbackAsReject: () => {
@@ -81,7 +86,7 @@ app.whenReady().then(() => {
       },
     })
   } else {
-    createWindow()
+    mainWindow = createWindow()
   }
   // ---
 
