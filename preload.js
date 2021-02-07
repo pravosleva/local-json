@@ -60,7 +60,13 @@ window.mobileSize = ({ width, height }) => {
   }
 }
 window.fullscreen = () => {
-  remote.getCurrentWindow().setFullScreen(true)
+  unmaximizeIfNecessary()
+  try {
+    fullscreenUnsetIfNecessary()
+    remote.getCurrentWindow().setFullScreen(true)
+  } catch (err) {
+    console.log(err)
+  }
 }
 window.restore = restore
 

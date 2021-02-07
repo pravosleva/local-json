@@ -102,8 +102,6 @@ function OldSchoolMenuLink({ label, to, isActiveOnlyWhenExact }: any) {
     exact: isActiveOnlyWhenExact,
   })
 
-  console.log(match)
-
   return (
     <div className={clsx({ link_active: match?.isExact })}>
       {match?.isExact && '👉 '}

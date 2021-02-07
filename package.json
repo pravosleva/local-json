@@ -9,6 +9,7 @@
     "dev": "concurrently --kill-others \"yarn frontend-dev\" \"NODE_ENV=development electron .\"",
     "frontend-dev": "yarn --cwd ./frontend dev",
     "dist": "yarn --cwd ./frontend build && electron-builder",
+    "dist:win": "yarn --cwd ./frontend build && electron-builder --win",
     "fresh-prod-start": "yarn build-client && NODE_ENV=production yarn start",
     "start": "yarn --cwd ./frontend build && NODE_ENV=production electron ."
   },

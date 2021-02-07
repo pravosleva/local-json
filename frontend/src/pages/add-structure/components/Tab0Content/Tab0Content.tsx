@@ -12,7 +12,6 @@ import { PaddedLikeParagraph } from '~/common/components'
 import { useJsonEditorContext } from '~/common/hooks'
 // @ts-ignore
 import { Box } from '~/common/components/Box'
-// @ts-ignore
 
 const AddStructure0: React.FC = () => {
   const { onChangeStructureEditor, state } = useJsonEditorContext()
