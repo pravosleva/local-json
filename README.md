@@ -1,6 +1,6 @@
 # local-json
 
-![./demo/screenshot.png](./demo/screenshot.png)
+![./demo/screenshot-0.png](./demo/screenshot-0.png)
 
 This desktop app was created for have ability to save, search by projectName and delete json files in local file system.
 
