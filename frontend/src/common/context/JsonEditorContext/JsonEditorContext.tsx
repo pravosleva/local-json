@@ -1,3 +1,4 @@
+/* eslint-disable no-underscore-dangle */
 /* eslint-disable @typescript-eslint/explicit-module-boundary-types */
 /* eslint-disable prefer-destructuring */
 import React, {
@@ -34,7 +35,7 @@ interface IEvent {
   plainText: string
 }
 interface IProject {
-  fileName: string
+  projectName: string
   readableName: string
 }
 interface IState {
@@ -59,8 +60,14 @@ export const JsonEditorContext = createContext({
   onSendStructure: (): void => {
     throw new Error('onSendStructure method should be implemented')
   },
-  getStructureByProjectName: (text: string): void => {
+  getStructureByProjectName: (
+    text: string,
+    isUiMessageRequired?: boolean
+  ): void => {
     throw new Error('getStructureByProjectName method should be implemented')
+  },
+  removeRemoteStructure: (projectName: string): void => {
+    throw new Error('removeRemoteStructure method should be implemented')
   },
   onChangeStructureEditor: (event: IEvent): void => {
     throw new Error('onChangeStructureEditor method should be implemented')
@@ -151,13 +158,9 @@ export const JsonEditorContextProvider: React.FC<IProps> = ({ children }) => {
 
     const r = await fetcher()
     if (r.isOk) {
-      addSuccessNotif({
-        message: r.message || 'Saved',
-      })
+      addSuccessNotif({ message: r.message || 'Saved' })
     } else if (r.message) {
-      addDangerNotif({
-        message: r.message,
-      })
+      addDangerNotif({ message: r.message })
     }
   }, [
     setStateDelta,
@@ -166,7 +169,10 @@ export const JsonEditorContextProvider: React.FC<IProps> = ({ children }) => {
     state.structure,
     state.projectName,
   ])
-  const getStructureByProjectName = async (projectName: string) => {
+  const getStructureByProjectName = async (
+    projectName: string,
+    isUiMessageRequired?: boolean
+  ) => {
     const fetcher = async () => {
       if (!state.projectName) {
         return { isOk: false, message: 'Заполните все поля', result: null }
@@ -181,7 +187,6 @@ export const JsonEditorContextProvider: React.FC<IProps> = ({ children }) => {
         .get(`${REACT_APP_ENDPOINT}/get-structure?${params.toString()}`)
         .then((res) => {
           setStateDelta({ isFound: true })
-          // addInfoNotif({ message: 'Found' })
           return {
             isOk: true,
             result: res.data,
@@ -199,13 +204,60 @@ export const JsonEditorContextProvider: React.FC<IProps> = ({ children }) => {
 
     const r = await fetcher()
     if (r.isOk) {
-      // alert(JSON.stringify(r.result.json))
+      if (isUiMessageRequired) addInfoNotif({ message: 'Found' })
       setStateDelta({ structure: r.result.json })
     } else if (r.message) {
-      // alert(r.message)
-      addDangerNotif({
-        message: r.message,
-      })
+      addDangerNotif({ message: r.message || 'No message' })
+    }
+  }
+
+  const _removeProjectFromLocalState = (removedProjectName: string) => {
+    // @ts-ignore
+    setState(({ projectList, ...rest }: IState) => {
+      const newProjectList = projectList.filter(
+        ({ projectName }: IProject) => projectName !== removedProjectName
+      )
+
+      return { ...rest, projectList: newProjectList }
+    })
+  }
+  const removeRemoteStructure = async (projectName: string) => {
+    const fetcher = async () => {
+      if (!projectName) {
+        return { isOk: false, message: 'projectName is required', result: null }
+      }
+      setStateDelta({ isLoading: true })
+
+      const params = new URLSearchParams()
+      // params.append('structure', JSON.stringify(state.structure))
+      params.append('projectName', projectName)
+
+      const response = await axios
+        .get(`${REACT_APP_ENDPOINT}/remove-project?${params.toString()}`)
+        .then((res) => {
+          return {
+            isOk: true,
+            result: res.data,
+            message: 'Ok',
+          }
+        })
+        .catch((err) => {
+          return { isOk: false, message: err.message || 'No msg', result: null }
+        })
+        .finally(() => {
+          setStateDelta({ isLoading: false })
+        })
+      return response
+    }
+
+    const r = await fetcher()
+    if (r.isOk) {
+      addSuccessNotif({ message: r.message || 'Removed' })
+
+      // TODO: Change local state...
+      _removeProjectFromLocalState(projectName)
+    } else if (r.message) {
+      addDangerNotif({ message: r.message || 'No mesage' })
     }
   }
   const resetState = useCallback(() => {
@@ -232,7 +284,11 @@ export const JsonEditorContextProvider: React.FC<IProps> = ({ children }) => {
           }
         })
         .catch((err) => {
-          return { isOk: false, message: err.message || 'No msg', result: null }
+          return {
+            isOk: false,
+            message: err.message || 'No mesage',
+            result: null,
+          }
         })
         .finally(() => {
           setStateDelta({ isLoading: false })
@@ -241,6 +297,7 @@ export const JsonEditorContextProvider: React.FC<IProps> = ({ children }) => {
       if (response.isOk) {
         setStateDelta({ projectList: response.result.json })
       } else {
+        addDangerNotif({ message: response.message })
         setStateDelta({ projectList: [] })
         // if (response.message) addDangerNotif({ message: response.message })
       }
@@ -260,6 +317,7 @@ export const JsonEditorContextProvider: React.FC<IProps> = ({ children }) => {
         makeRandomProjectName,
         resetState,
         getStructureByProjectName,
+        removeRemoteStructure,
       }}
     >
       {children}

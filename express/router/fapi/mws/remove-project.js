@@ -1,6 +1,7 @@
 /* eslint-disable guard-for-in */
 /* eslint-disable no-restricted-syntax */
 const fs = require('fs')
+const fsExtra = require('fs-extra')
 
 const fileStoragePath = require('../../../utils/getFileStoragePath')()
 
@@ -16,7 +17,7 @@ const requiredKeysMap = new Map()
 
 for (const key in requiredKeys) requiredKeysMap.set(key, requiredKeys[key])
 
-const saveStructure = (req, res, _next) => {
+const saveStructure = async (req, res, _next) => {
   const result = {
     success: false,
   }
@@ -35,17 +36,22 @@ const saveStructure = (req, res, _next) => {
     const projectDir = `${fileStoragePath}/${projectName}`
 
     if (!fs.existsSync(projectDir)) {
-      // fs.mkdirSync(projectDir)
       status = 404
       throw new Error(`Project ${projectName} does not exists`)
     } else {
-      const text = fs.readFileSync(`${projectDir}/structure.json`, 'utf8')
-
-      result.json = JSON.parse(text)
+      await fsExtra
+        .remove(projectDir)
+        .then(() => {
+          result.message = `Deleted: ${projectDir}`
+          result.success = true
+          status = 200
+        })
+        .catch((err) => {
+          result.message = err.message || 'No message'
+          result.success = false
+          status = 500
+        })
     }
-
-    result.success = true
-    status = 200
   } catch (err) {
     result.message = err.message || 'Fuckup'
   }

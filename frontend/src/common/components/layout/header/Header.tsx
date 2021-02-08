@@ -79,7 +79,7 @@ export const Header: React.FC<any> = () => {
               <OldSchoolMenuLink to="/" label="Home" isActiveOnlyWhenExact />
               <OldSchoolMenuLink
                 to="/add-structure"
-                label="Cart"
+                label="JSON"
                 isActiveOnlyWhenExact
               />
               <OldSchoolMenuLink

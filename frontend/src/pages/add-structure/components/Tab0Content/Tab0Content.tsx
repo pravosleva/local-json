@@ -57,6 +57,15 @@ export const Tab0Content: React.FC = () => {
     resetState,
     getStructureByProjectName,
   } = useJsonEditorContext()
+  const handleGetStructure = () => {
+    getStructureByProjectName(state.projectName, true)
+  }
+  const handleSave = () => {
+    onSendStructure()
+  }
+  const handleReset = () => {
+    resetState()
+  }
 
   return (
     <>
@@ -73,24 +82,18 @@ export const Tab0Content: React.FC = () => {
             onClick={() => {
               makeRandomProjectName()
             }}
-          >
-            Random Project Name
-          </Button> */}
+          > Random Project Name</Button> */}
           <Button
             dark
             disabled={state.isLoading || state.isFound || !state.projectName}
-            onClick={() => {
-              getStructureByProjectName(state.projectName)
-            }}
+            onClick={handleGetStructure}
           >
             Get structure by project name {state.isLoading && <span>...</span>}
           </Button>
           <Button
             dark
             disabled={!isValidParams || state.isLoading || state.isCreated}
-            onClick={() => {
-              onSendStructure()
-            }}
+            onClick={handleSave}
           >
             <>
               <Icon
@@ -103,12 +106,7 @@ export const Tab0Content: React.FC = () => {
             </>
           </Button>
           {state.isCreated && (
-            <Button
-              dark
-              onClick={() => {
-                resetState()
-              }}
-            >
+            <Button dark onClick={handleReset}>
               Reset
             </Button>
           )}

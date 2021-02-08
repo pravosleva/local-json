@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-shadow */
 /* eslint-disable react-hooks/rules-of-hooks */
 /* eslint-disable jsx-a11y/no-static-element-interactions */
 /* eslint-disable jsx-a11y/click-events-have-key-events */
@@ -5,7 +6,7 @@ import React, { useMemo, useState } from 'react'
 import { Tabs, Tab, TabItems, TabItem } from 'ui-neumorphism'
 // @ts-ignore
 import Icon from '@mdi/react'
-import { mdiFile } from '@mdi/js'
+import { mdiFile, mdiDelete } from '@mdi/js'
 import { TextField } from '~/common/components/TextField'
 import { ResponsiveBlock, DenseTable } from '~/common/components'
 import { useJsonEditorContext } from '~/common/hooks'
@@ -17,6 +18,7 @@ export const AddStructure: React.FC = () => {
     state,
     onChangeProjectName,
     getStructureByProjectName,
+    removeRemoteStructure,
   } = useJsonEditorContext()
   const [activeTabIndex, setActiveTabIndex] = useState<number>(0)
   const handleChange = (e: any) => {
@@ -27,18 +29,35 @@ export const AddStructure: React.FC = () => {
   const projectList = useMemo(
     () =>
       state.projectList.map((props) => {
-        const { fileName } = props
+        const { projectName } = props
         const handleClick = (e: any) => {
-          onChangeProjectName(fileName)
+          onChangeProjectName(projectName)
           setActiveTabIndex(0)
-          setTimeout(() => getStructureByProjectName(fileName), 2000)
+          setTimeout(() => getStructureByProjectName(projectName), 2000)
+        }
+        const handleRemove = (e: any) => {
+          removeRemoteStructure(projectName)
         }
 
         return {
           ...props,
-          jsx: (
-            <div key={fileName} className="file-name" onClick={handleClick}>
-              <Icon path={mdiFile} size={0.7} /> <span>{props.fileName}</span>
+          projectNameJsx: (
+            <div
+              key={projectName}
+              className="file-name tbody-item_red-on-hover"
+              onClick={handleClick}
+            >
+              <Icon path={mdiFile} size={0.7} />{' '}
+              <span>{props.projectName}</span>
+            </div>
+          ),
+          removeProjectJsx: (
+            <div
+              key={projectName}
+              className="tbody-item_red-on-hover"
+              onClick={handleRemove}
+            >
+              <Icon path={mdiDelete} size={0.7} />
             </div>
           ),
         }
@@ -48,17 +67,18 @@ export const AddStructure: React.FC = () => {
       onChangeProjectName,
       setActiveTabIndex,
       getStructureByProjectName,
+      removeRemoteStructure,
     ]
   )
 
   return (
     <>
       {/* <ResponsiveBlock bgColor="#3E3D42" isFullWidth></ResponsiveBlock> */}
-      <ResponsiveBlock isPaddedMobile>
+      <ResponsiveBlock>
         <>
           <Box isCentered noMarginBottom>
             <TextField
-              loading={state.isLoading}
+              // loading={state.isLoading}
               // key={projectName}
               // autofocus
               type="text"
@@ -74,39 +94,57 @@ export const AddStructure: React.FC = () => {
             />
           </Box>
           <>
-            <Tabs
-              dark
-              value={activeTabIndex}
-              onChange={({ active }: any) => setActiveTabIndex(active)}
-            >
-              <Tab>Structure</Tab>
-              <Tab>
-                Projects
-                {projectList.length > 0 ? ` (${projectList.length})` : ''}
-              </Tab>
-              <Tab>Analysis</Tab>
-            </Tabs>
+            <ResponsiveBlock isPaddedMobile>
+              <Tabs
+                dark
+                value={activeTabIndex}
+                onChange={({ active }: any) => setActiveTabIndex(active)}
+              >
+                <Tab>Structure</Tab>
+                <Tab>
+                  Projects
+                  {projectList.length > 0 ? ` (${projectList.length})` : ''}
+                </Tab>
+                <Tab>Local state</Tab>
+              </Tabs>
+            </ResponsiveBlock>
             <TabItems value={activeTabIndex}>
               <TabItem>
-                <Tab0Content />
+                <ResponsiveBlock isPaddedMobile>
+                  <Tab0Content />
+                </ResponsiveBlock>
               </TabItem>
               <TabItem>
-                {projectList.length > 0 && (
+                {projectList.length > 0 ? (
                   <ResponsiveBlock isPaddedMobile>
                     <DenseTable
                       items={projectList}
                       headers={[
                         {
                           text: 'Could be interested',
-                          value: 'jsx',
+                          value: 'projectNameJsx',
                         },
-                        // { text: 'test val', value: 'tstVal' },
+                        {
+                          text: 'Remove',
+                          value: 'removeProjectJsx',
+                          align: 'right',
+                        },
                       ]}
                     />
                   </ResponsiveBlock>
+                ) : (
+                  <ResponsiveBlock isPaddedMobile>
+                    <div>No items.</div>
+                  </ResponsiveBlock>
                 )}
               </TabItem>
-              <TabItem>In progress...</TabItem>
+              <TabItem>
+                <ResponsiveBlock isPaddedMobile>
+                  <pre style={{ whiteSpace: 'pre-wrap', maxWidth: '100%' }}>
+                    {JSON.stringify(state, null, 2)}
+                  </pre>
+                </ResponsiveBlock>
+              </TabItem>
             </TabItems>
           </>
         </>

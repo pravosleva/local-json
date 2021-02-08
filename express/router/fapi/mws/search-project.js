@@ -31,7 +31,7 @@ const saveStructure = (req, res, _next) => {
       }
     })
 
-    const { projectName } = query
+    // const { projectName } = query
     // const projectDir = `${fileStoragePath}/${projectName}`
 
     const filesArr = fs.readdirSync(fileStoragePath)
@@ -48,10 +48,10 @@ const saveStructure = (req, res, _next) => {
       return flag
     }
     const resultArr = filesArr
-      .filter((item, index) => checkTheSubstrByWords(query.q, item))
-      .map((item) => ({
-        fileName: item,
-        readableName: item.split('.').slice(0, -1).join('.'),
+      .filter((name, _index) => checkTheSubstrByWords(query.q, name))
+      .map((name) => ({
+        projectName: name,
+        readableName: name.split('.').slice(0, -1).join('.'),
       }))
 
     if (resultArr.length === 0) {
@@ -67,7 +67,9 @@ const saveStructure = (req, res, _next) => {
     result.message = err.message || 'Fuckup'
   }
 
-  res.status(status).send(result)
+  setTimeout(() => {
+    res.status(status).send(result)
+  }, 2000)
 }
 
 module.exports = saveStructure
