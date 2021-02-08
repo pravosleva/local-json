@@ -1,7 +1,7 @@
 {
-  "name": "electron-react-boilerplate-2021",
+  "name": "local-json",
   "version": "1.0.0",
-  "description": "A minimal Electron application",
+  "description": "A minimal Electron Express React app",
   "main": "main.js",
   "scripts": {
     "install-all": "yarn install && yarn --cwd ./frontend install",
@@ -37,11 +37,11 @@
       "icon": "resourses/icon.ico"
     }
   },
-  "repository": "https://github.com/pravosleva/electron-react-boilerplate-2021",
+  "repository": "https://github.com/pravosleva/local-json",
   "author": {
     "name": "Den Pol",
     "email": "selection4test@gmail.com",
-    "url": "https://github.com/pravosleva/electron-react-boilerplate-2021"
+    "url": "https://github.com/pravosleva/local-json"
   },
   "keywords": [
     "Electron",

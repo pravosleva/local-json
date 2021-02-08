@@ -1,4 +1,8 @@
-# electron-react-boilerplate-2021
+# local-json
+
+![./demo/screenshot.png](./demo/screenshot.png)
+
+This desktop app was created for have ability to save, search by projectName and delete json files in local file system.
 
 > **[electron-quick-start app](https://github.com/electron/electron-quick-start)** based. Thanx to contributors!
 
@@ -8,7 +12,7 @@ Electron side deps will be installed then frontend side deps will be installed.
 
 ### `yarn dev`
 
-You can use hot reload dev mode for frontend react app in this electron app. Electron app BrowserWindow will be created when `http://localhost:3535` will be available.
+You can use hot reload dev mode for frontend react app in this electron app. Electron app BrowserWindow will be created when [http://localhost:3535](http://localhost:3535) will be available.
 
 ### `yarn fresh-prod-start`
 
@@ -25,6 +29,10 @@ You can run `$ yarn dist` (to package in a distributable format (e.g. dmg, windo
 See result in `/release`.
 
 To ensure your native dependencies are always matched with electron version, simply add script `"postinstall": "electron-builder install-app-deps"` to your `package.json`.
+
+### `yarn dist:win`
+
+Build exe file for windows
 
 ## How to make fresh CRA project
 
