@@ -1,4 +1,5 @@
 export * from './DenseTable'
+export * from './LoaderBlock'
 export * from './PaddedLikeParagraph'
 export * from './ResponsiveBlock'
 export * from './TextField'

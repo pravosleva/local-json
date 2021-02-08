@@ -12,6 +12,7 @@ import { PaddedLikeParagraph } from '~/common/components'
 import { useJsonEditorContext } from '~/common/hooks'
 // @ts-ignore
 import { Box } from '~/common/components/Box'
+import { defaultBoxHeight } from '~/common/components/layout/constants'
 
 const AddStructure0: React.FC = () => {
   const { onChangeStructureEditor, state } = useJsonEditorContext()
@@ -41,7 +42,7 @@ const AddStructure0: React.FC = () => {
       theme="dark_vscode_tribute"
       // theme="light_mitsuketa_tribute"
       locale={locale}
-      height="310px"
+      height={`${defaultBoxHeight}px`}
       onChange={onChangeStructureEditor}
       waitAfterKeyPress={2000}
     />

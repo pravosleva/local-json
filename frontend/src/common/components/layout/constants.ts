@@ -1,7 +1,7 @@
 const maxWidth = {
   desktop: 800,
 }
-
+export const defaultBoxHeight = 310
 export const maxWidthDesktop = maxWidth.desktop
 
 const height = {

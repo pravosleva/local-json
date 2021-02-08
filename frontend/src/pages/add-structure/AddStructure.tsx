@@ -105,7 +105,7 @@ export const AddStructure: React.FC = () => {
                   Projects
                   {projectList.length > 0 ? ` (${projectList.length})` : ''}
                 </Tab>
-                <Tab>Local state</Tab>
+                <Tab>State</Tab>
               </Tabs>
             </ResponsiveBlock>
             <TabItems value={activeTabIndex}>
