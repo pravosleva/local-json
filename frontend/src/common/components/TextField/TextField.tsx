@@ -25,8 +25,10 @@ const CustomTextField = ({
 }: IProps) => {
   return (
     <NmTextField
-      autofocus
-      key={value}
+      // autofocus
+      // @ts-ignore
+      uncontrolled={false}
+      // key={value}
       dark
       loading={loading}
       // key={projectName}
