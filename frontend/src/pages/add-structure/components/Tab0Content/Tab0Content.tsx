@@ -95,6 +95,7 @@ export const Tab0Content: React.FC = () => {
             dark
             disabled={!isValidParams || state.isLoading || state.isCreated}
             onClick={handleSave}
+            bordered
           >
             <>
               <Icon
