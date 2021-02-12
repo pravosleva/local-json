@@ -1,10 +1,9 @@
 # local-json
 
-![./demo/screenshot-0.png](./demo/screenshot-0.png)
+![Screenshot 1](./demo/screenshot-1.png)
+![Screenshot 2](./demo/screenshot-2.png)
 
 This desktop app was created for have ability to save, search by projectName and delete json files in local file system.
-
-> **[electron-quick-start app](https://github.com/electron/electron-quick-start)** based. Thanx to contributors!
 
 ### `yarn install-all`
 
