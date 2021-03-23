@@ -30,17 +30,17 @@ const saveStructure = (req, res, _next) => {
     success: false,
   }
   let status = 500
-  const { query } = req
+  const { body } = req
 
   try {
     Object.keys(requiredKeys).forEach((key) => {
-      if (!query[key]) {
+      if (!body[key]) {
         status = 400
-        throw new Error(`Key "${key}" not found in request.query`)
+        throw new Error(`Key "${key}" not found in request.body`)
       }
     })
 
-    const { structure, projectName } = query
+    const { structure, projectName } = body
     const projectDir = `${fileStoragePath}/${projectName}`
 
     if (!fs.existsSync(projectDir)) {

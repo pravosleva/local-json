@@ -137,8 +137,19 @@ export const JsonEditorContextProvider: React.FC<IProps> = ({ children }) => {
       params.append('structure', JSON.stringify(state.structure))
       params.append('projectName', state.projectName)
 
+      const data = {}
+
+      // @ts-ignore
+      for (const pair of params.entries()) {
+        // @ts-ignore
+        data[pair[0]] = pair[1]
+      }
+
       const response = await axios
-        .get(`${REACT_APP_ENDPOINT}/save-structure?${params.toString()}`)
+        // .get(`${REACT_APP_ENDPOINT}/save-structure?${params.toString()}`)
+        .post(`${REACT_APP_ENDPOINT}/save-structure`, {
+          ...data,
+        })
         .then((res) => {
           setStateDelta({ isCreated: true })
           return {
